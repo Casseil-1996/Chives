@@ -1,12 +1,12 @@
 <template>
-  <div id="Home">
-    Home
+  <div id="List">
+    List
   </div>
 </template>
 
 <script>
 export default {
-  name: 'Home',
+  name: 'List',
   data () {
     return {
 
@@ -19,7 +19,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-#Home {
+#List {
 
 }
 </style>

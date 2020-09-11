@@ -24,6 +24,7 @@ export default {
   height: 100%;
 
   .page {
+    overflow: auto;
     flex: 1;
   }
 }

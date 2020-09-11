@@ -55,6 +55,16 @@
     margin: 5px * $i !important;
   }
 
+  .m-x-#{$i*5} {
+    margin-left: 5px * $i;
+    margin-right: 5px * $i;
+  }
+
+  .m-y-#{$i*5} {
+    margin-top: 5px * $i;
+    margin-bottom: 5px * $i;
+  }
+
   .pt#{$i*5} {
     padding-top: 5px * $i;
   }
@@ -74,6 +84,16 @@
   .p#{$i*5} {
     padding: 5px * $i;
   }
+
+  .p-x-#{$i*5} {
+    padding-right: 5px * $i;
+    padding-left: 5px * $i;
+  }
+
+  .p-y-#{$i*5} {
+    padding-bottom: 5px * $i;
+    padding-top: 5px * $i;
+  }
 }
 
 @for $i from 6 to 16 {
@@ -86,6 +106,7 @@
   .w#{$i*10} {
     width: 10px * $i;
   }
+
   .mw#{$i*10} {
     min-width: 10px * $i;
   }
@@ -169,16 +190,43 @@ html {
   justify-content: space-between;
 }
 
-.blue {
-  color: #409eff;
+.blue,
+.main-color {
+  color: #1890ff;
+}
+
+.error,
+.danger,
+.red {
+  color: #ff4d4f !important;
+}
+
+.bg-red {
+  background-color: #ff4d4f !important;
+  color: #fff !important;
+}
+
+.success,
+.green {
+  color: #67c23a !important;
+}
+
+.bg-green {
+  background-color: #67c23a !important;
+  color: #fff !important;
+}
+
+.warning,
+.yellow {
+  color: #faad14 !important;
+}
+
+.black1 {
+  color: #333 !important;
 }
 
 .tar {
   text-align: right;
-}
-
-.success {
-  color: #67c23a;
 }
 
 .shadow {

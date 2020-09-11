@@ -17,7 +17,7 @@
       class="item"
     >
       <LineChartOutlined class="icon" />
-      <span>收藏</span>
+      <span>统计</span>
     </div>
   </div>
 </template>

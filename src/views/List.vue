@@ -1,28 +1,28 @@
 <template>
   <div id="List">
     <div class="tac space-between mb10 mt30 m-x-10 header">
-      <div
-        :key="item.label"
-        class="shadow"
-        v-for="item in headerData"
-      >
+      <div :key="item.label" class="shadow" v-for="item in headerData">
         <div>{{ item.label }}</div>
-        <div
-          :class="Compare(item.value, 0) ? 'red' : 'green'"
-          class="bold"
-        >{{ item.value }}</div>
+        <div :class="item.className + ' bold'">
+          {{ item.value }}
+        </div>
       </div>
     </div>
     <FundItem
       :fundItem="item"
       :key="item.code"
-      @show-edit="showEdit"
+      @show-edit="(item) => (currentEditItem = item)"
       v-for="item in fundList"
     />
     <FundEdit
       :currentEditItem="currentEditItem"
       @cancel="currentEditItem = null"
     />
+    <div>
+      <Button class="shadow reload-btn" @click="getFundList" shape="circle">
+        <ReloadOutlined />
+      </Button>
+    </div>
   </div>
 </template>
 
@@ -33,6 +33,7 @@ import { math, Compare } from '../methods'
 import FundEdit from '@/components/FundEdit'
 import FundItem from '@/components/FundItem'
 import { Button } from 'ant-design-vue'
+import { ReloadOutlined } from '@ant-design/icons-vue'
 
 const { $sum } = math
 export default {
@@ -62,25 +63,19 @@ export default {
       }
     })
 
-    const profitAmountToday = computed(() => (profitAmount.value.profitAmountToday))
-    const profitAmountTotal = computed(() => (profitAmount.value.profitAmountTotal))
-    const profitAmountLastDay = computed(() => (profitAmount.value.profitAmountLastDay))
-
     const headerData = [{
       label: '今日',
-      value: profitAmountToday.value
+      value: profitAmount.value.profitAmountToday.toFixed(2),
+      className: Compare(profitAmount.value.profitAmountToday, 0) ? 'red' : 'green'
     }, {
       label: '昨日',
-      value: profitAmountLastDay.value
+      value: profitAmount.value.profitAmountLastDay.toFixed(2),
+      className: Compare(profitAmount.value.profitAmountLastDay, 0) ? 'red' : 'green'
     }, {
       label: '持仓',
-      value: profitAmountTotal.value
+      value: profitAmount.value.profitAmountTotal.toFixed(2),
+      className: Compare(profitAmount.value.profitAmountTotal, 0) ? 'red' : 'green'
     }]
-
-    const showEdit = (item) => {
-      state.currentEditItem = item
-      console.log(state.currentEditItem)
-    }
 
     return {
       ...toRefs(state),
@@ -89,7 +84,7 @@ export default {
       FundEdit,
       FundItem,
       Button,
-      showEdit
+      ReloadOutlined
     }
   },
   created () {
@@ -97,6 +92,9 @@ export default {
   },
   methods: {
     ...mapActions(['getFundList']),
+    reload () {
+
+    }
   }
 }
 </script>
@@ -112,6 +110,13 @@ export default {
       flex: 1;
       margin: 5px;
     }
+  }
+
+  .reload-btn {
+    $offset: 20px;
+    bottom: 64px + $offset;
+    position: fixed;
+    right: $offset;
   }
 }
 </style>

@@ -63,7 +63,6 @@ export default {
       const { cost, holdAmount, holdCount, name: title } = props.currentEditItem
       state.editor = { cost, holdAmount, holdCount, title }
       state.visible = true
-      console.log(state.visible)
     })
 
     const getHoldCount = () => {

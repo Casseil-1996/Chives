@@ -25,13 +25,23 @@ export default createStore({
         data.forEach(item => {
           const target = fundList.find(fund => fund.code == item.code)
           target.expectWorth = item.expectWorth
+          
+          // 净值 (份)
           target.netWorth = item.netWorth
           target.name = item.name
-          target.holdCount = div(target.holdAmount, target.cost).toFixed(2)
-          target.profitHold = (((item.expectWorth || item.netWorth) * target.holdCount) - target.holdAmount).toFixed(2)
+          // 持有量 (份)
+          target.holdCount = div(target.holdAmount, target.netWorth).toFixed(2)
+          // 最新总价 (元)
+          target.valuation = mul((item.expectWorth || item.netWorth), target.holdCount)
+          // 持仓总收益 (元)
+          target.profitHold = sub(target.valuation, target.holdAmount).toFixed(2)
+          // 今日收益 (元)
           target.profitToday = mul(target.holdCount, sub(Number(item.expectWorth), Number(item.netWorth))).toFixed(2)
+          // 昨日收益 (元)
           target.profitLastDay = mul(target.holdAmount, div(item.dayGrowth, 100)).toFixed(2)
+          // 日涨幅 (%)
           target.dayGrowth = item.dayGrowth
+          // 预计净值涨跌 (元/份)
           target.expectGrowth = item.expectGrowth
         })
         commit('updateFundVal', fundList)
